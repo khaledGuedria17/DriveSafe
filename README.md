@@ -2,6 +2,12 @@
 
 DriveSafe is an advanced, camera-free, on-device Android application designed to detect driver distraction (texting, scrolling, tapping, calling) and grade its severity (**Low / Moderate / High**) using a deterministic, expert-rule decision tree.
 
+## Overview & Screenshots
+
+| Simulator (Home) | History Logs | Safety Dashboard |
+| :---: | :---: | :---: |
+| *Driving Speed & Simulator* | *Chronological History & Filters* | *Severity Distribution & Metrics* |
+
 ## Key Features
 - **Deterministic 8-Layer Decision Tree**: Pure-Kotlin core logic evaluating speed, IMU motion, and app-level behavior without requiring cloud ML or training data.
 - **Multimodal Telemetry & Data Streams**:
@@ -19,6 +25,9 @@ DriveSafe is an advanced, camera-free, on-device Android application designed to
 - **`data/`**: Room database entities, DAOs, converters, and persistent event repository.
 - **`service/`**: Foreground monitoring service and accessibility event listeners.
 - **`ui/`**: Jetpack Compose screens (Dashboard, History, Simulator, Splash).
+
+## Research Paper & Specifications
+- **Source Material**: Based on *Progress Report #2, "Proposed DT Approach" (RIF Grant 23081, Aug 2026)* (`Progress Report v2.pdf`).
 
 ## How to Use
 1. Clone the repository and open in Android Studio (Giraffe or newer).
