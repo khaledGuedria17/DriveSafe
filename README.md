@@ -18,6 +18,27 @@ DriveSafe is an advanced, camera-free, on-device Android application designed to
 - **Persistent Room Database**: Local SQLite persistence ensuring logs and driving sessions remain stored across app restarts.
 - **Instant Severity-Mapped Notifications**: Real-time notifications mapped precisely to risk levels (Low = muted, Moderate = bip, High = high alert with sound, vibration, and TTS).
 
+## Deterministic Decision Tree (8-Layer Logic)
+
+The core decision engine (`DecisionTree.kt`) operates via an authoritative 8-layer rule evaluation per window (5s stride):
+
+1. **R0 (Stationary)**: If vehicle speed `< 5 km/h`, severity defaults to `NONE` (overriding all distractions when parked).
+2. **R1 (Navigation Exemption)**: If foreground app is `NAVIGATION` and phone handling is `NO` (cradled), severity defaults to `NONE`.
+3. **R2 (Inactivity)**: If no active interaction is detected (`!is_active`), severity is `NONE`.
+4. **R3 (Texting)**: If typing is detected (`isTyping`), base severity is `HIGH`.
+5. **R4 (Calling)**: Evaluates active phone calls:
+   - Handled call -> `HIGH`
+   - Hands-free / unknown handling -> `MODERATE`
+6. **R5 (Scrolling / Tapping / Unspecified)**:
+   - Tapping (`> 1.5 taps/s`) -> `MODERATE` (beats scrolling)
+   - Scrolling -> `LOW`
+   - Unspecified handling -> `MODERATE`
+7. **R6 (Speed Escalation)**: Scales base severity tiers by vehicle speed:
+   - `vMean ≥ 60 km/h` -> +2 tiers (capped at `HIGH`)
+   - `30 ≤ vMean < 60 km/h` -> +1 tier
+   - `vMean < 30 km/h` -> +0 tiers
+8. **R7 (Hysteresis)**: Requires **3 consecutive evaluation windows** (`N_on = 3`) to emit an alert, and **3 consecutive NONE windows** (`N_off = 3`) to clear, eliminating false alarms.
+
 ## Architecture
 - **`logic/`**: Pure-Kotlin decision tree, hysteresis state machine, feature vector models, and configuration defaults.
 - **`features/`**: Feature extraction and z-normalized phone-handled classification.
