@@ -6,7 +6,7 @@ DriveSafe is an advanced, camera-free, on-device Android application designed to
 
 | Simulator (Home) | History Logs | Safety Dashboard |
 | :---: | :---: | :---: |
-| *Driving Speed & Simulator* | *Chronological History & Filters* | *Severity Distribution & Metrics* |
+| ![Simulator](assets/simulator.png) | ![History](assets/history.png) | ![Dashboard](assets/dashboard.png) |
 
 ## Key Features
 - **Deterministic 8-Layer Decision Tree**: Pure-Kotlin core logic evaluating speed, IMU motion, and app-level behavior without requiring cloud ML or training data.
@@ -27,7 +27,7 @@ DriveSafe is an advanced, camera-free, on-device Android application designed to
 - **`ui/`**: Jetpack Compose screens (Dashboard, History, Simulator, Splash).
 
 ## Research Paper & Specifications
-- **Source Material**: Based on *Progress Report #2, "Proposed DT Approach" (RIF Grant 23081, Aug 2026)* (`Progress Report v2.pdf`).
+- **Source Material**: [Progress Report v2.pdf](docs/Progress%20Report%20v2.pdf) (Based on *Progress Report #2, "Proposed DT Approach", RIF Grant 23081, Aug 2026*).
 
 ## How to Use
 1. Clone the repository and open in Android Studio (Giraffe or newer).
